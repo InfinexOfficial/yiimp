@@ -135,6 +135,11 @@ function BackendCoinsUpdate()
 			if($template && isset($template['coinbasevalue']))
 			{
 				$coin->reward = $template['coinbasevalue']/100000000*$coin->reward_mul;
+				
+				if(isset($template['founderreward']) && arraySafeVal($template,'founder_reward_enforced')) {
+					$coin->reward -= arraySafeVal($template['founderreward'],'amount',0)/100000000;
+					$coin->hasfounderreward = true;
+				}
 
 				if($coin->symbol == 'TAC' && isset($template['_V2']))
 					$coin->charity_amount = $template['_V2']/100000000;
