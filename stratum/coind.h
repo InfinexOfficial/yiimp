@@ -64,6 +64,7 @@ public:
 	int notreportingcounter;
 	bool usegetwork;
 	bool usememorypool;
+	bool hasfounderreward;
 	bool hasmasternodes;
 	bool oldmasternodes;
 	bool noblocknotify;
