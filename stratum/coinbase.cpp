@@ -215,17 +215,19 @@ void coinbase_create(YAAMP_COIND *coind, YAAMP_JOB_TEMPLATE *templ, json_value *
 	
 	if(coind->hasfounderrewards)
 	{
+		char founderscript_dests[2048] = { 0 };
+		char founderscript_payee[128] = { 0 };
 		bool founderreward_enabled = json_get_bool(json_result, "founder_reward_enforced");
 		json_value* founderreward = json_get_array(json_result, "founderreward");
 		if(founderreward_enabled && founderreward)
 		{
 			const char *founderpayee = json_get_string(founderreward->u.array.values[i], "founderpayee");
 			json_int_t founderamount = json_get_int(founderreward->u.array.values[i], "amount");
-			if (payee && amount) 
+			if (founderpayee && founderamount) 
 			{
-				available -= amount;
-				base58_decode(payee, script_payee);
-				job_pack_tx(coind, script_dests, amount, script_payee);
+				available -= founderamount;
+				base58_decode(founderpayee, founderscript_payee);
+				job_pack_tx(coind, founderscript_dests, founderamount, founderscript_payee);
 			}
 		}
 	}
@@ -453,6 +455,3 @@ void coinbase_create(YAAMP_COIND *coind, YAAMP_JOB_TEMPLATE *templ, json_value *
 //	debuglog("coinb1 %s\n", templ->coinb1);
 //	debuglog("coinb2 %s\n", templ->coinb2);
 }
-
-
-
