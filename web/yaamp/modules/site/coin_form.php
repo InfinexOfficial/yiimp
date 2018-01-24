@@ -213,6 +213,12 @@ echo CUFHtml::activeCheckBox($coin, 'txmessage');
 echo '<p class="formHint2">Block template with a tx message</p>';
 echo CUFHtml::closeCtrlHolder();
 
+echo CUFHtml::openActiveCtrlHolder($coin, 'hasfounderreward');
+echo CUFHtml::activeLabelEx($coin, 'hasfounderreward');
+echo CUFHtml::activeCheckBox($coin, 'hasfounderreward');
+echo '<p class="formHint2">Require "payee" and "payee_amount" fields in getblocktemplate (Infinex)</p>';
+echo CUFHtml::closeCtrlHolder();
+
 echo CUFHtml::openActiveCtrlHolder($coin, 'hasmasternodes');
 echo CUFHtml::activeLabelEx($coin, 'hasmasternodes');
 echo CUFHtml::activeCheckBox($coin, 'hasmasternodes');
