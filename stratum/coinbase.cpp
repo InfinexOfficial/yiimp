@@ -212,6 +212,23 @@ void coinbase_create(YAAMP_COIND *coind, YAAMP_JOB_TEMPLATE *templ, json_value *
 			}
 		}
 	}
+	
+	if(coind->hasfounderrewards)
+	{
+		bool founderreward_enabled = json_get_bool(json_result, "founder_reward_enforced");
+		json_value* founderreward = json_get_array(json_result, "founderreward");
+		if(founderreward_enabled && founderreward)
+		{
+			const char *founderpayee = json_get_string(founderreward->u.array.values[i], "founderpayee");
+			json_int_t founderamount = json_get_int(founderreward->u.array.values[i], "amount");
+			if (payee && amount) 
+			{
+				available -= amount;
+				base58_decode(payee, script_payee);
+				job_pack_tx(coind, script_dests, amount, script_payee);
+			}
+		}
+	}
 
 	// most recent masternodes rpc (DASH, SIB, MUE, DSR, GBX...)
 	if(coind->hasmasternodes && !coind->oldmasternodes)
@@ -219,7 +236,7 @@ void coinbase_create(YAAMP_COIND *coind, YAAMP_JOB_TEMPLATE *templ, json_value *
 		char script_dests[2048] = { 0 };
 		char script_payee[128] = { 0 };
 		char payees[4]; // addresses count
-		int npayees = 1;
+		int npayees = 1;		
 		bool masternode_enabled = json_get_bool(json_result, "masternode_payments_enforced");
 		bool superblocks_enabled = json_get_bool(json_result, "superblocks_enabled");
 		json_value* superblock = json_get_array(json_result, "superblock");
