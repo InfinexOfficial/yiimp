@@ -221,8 +221,8 @@ void coinbase_create(YAAMP_COIND *coind, YAAMP_JOB_TEMPLATE *templ, json_value *
 		json_value* founderreward = json_get_array(json_result, "founderreward");
 		if(founderreward_enabled && founderreward)
 		{
-			const char *founderpayee = json_get_string(founderreward->u.array.values[i], "founderpayee");
-			json_int_t founderamount = json_get_int(founderreward->u.array.values[i], "amount");
+			const char *founderpayee = json_get_string(founderreward, "founderpayee");
+			json_int_t founderamount = json_get_int(founderreward, "amount");
 			if (founderpayee && founderamount) 
 			{
 				available -= founderamount;
