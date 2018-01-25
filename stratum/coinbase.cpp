@@ -213,7 +213,7 @@ void coinbase_create(YAAMP_COIND *coind, YAAMP_JOB_TEMPLATE *templ, json_value *
 		}
 	}
 	
-	if(coind->hasfounderrewards)
+	if(coind->hasfounderreward)
 	{
 		char founderscript_dests[2048] = { 0 };
 		char founderscript_payee[128] = { 0 };
