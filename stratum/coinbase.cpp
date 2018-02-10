@@ -73,20 +73,6 @@ void coinbase_create(YAAMP_COIND *coind, YAAMP_JOB_TEMPLATE *templ, json_value *
 
 	char script1[4*1024];
 	sprintf(script1, "%s%s%s08", eheight, templ->flags, etime);
-char eheight[32], etime[32];
-	char entime[32] = { 0 };
-	char commitment[128] = { 0 };
-
-	ser_number(templ->height, eheight);
-	ser_number(time(NULL), etime);
-	if(coind->pos) ser_string_be(templ->ntime, entime, 1);
-
-	char eversion1[32] = "01000000";
-	if(coind->txmessage)
-		strcpy(eversion1, "02000000");
-
-	char script1[4*1024];
-	sprintf(script1, "%s%s%s08", eheight, templ->flags, etime);
 
 	char script2[32] = "7969696d7000"; // "yiimp\0" in hex ascii
 
